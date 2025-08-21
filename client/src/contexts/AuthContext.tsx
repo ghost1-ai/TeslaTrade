@@ -46,10 +46,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Authentication service is not available. Please check Firebase configuration.');
+    }
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
+      
+      // Provide user-friendly error messages
+      if (error.code === 'auth/configuration-not-found') {
+        throw new Error('Firebase Authentication is not properly configured. Please enable Authentication in your Firebase project.');
+      } else if (error.code === 'auth/user-not-found') {
+        throw new Error('No account found with this email address.');
+      } else if (error.code === 'auth/wrong-password') {
+        throw new Error('Incorrect password.');
+      } else if (error.code === 'auth/invalid-email') {
+        throw new Error('Please enter a valid email address.');
+      } else if (error.code === 'auth/user-disabled') {
+        throw new Error('This account has been disabled.');
+      }
+      
       throw error;
     }
   };
@@ -63,6 +81,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     currency: string;
     password: string;
   }) => {
+    if (!auth) {
+      throw new Error('Authentication service is not available. Please check Firebase configuration.');
+    }
+
+    if (!db) {
+      throw new Error('Database service is not available. Please check Firebase configuration.');
+    }
+
     try {
       const { user: firebaseUser } = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       
@@ -93,8 +119,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       await set(ref(db, `users/${firebaseUser.uid}`), newUser);
       await set(ref(db, `portfolios/${firebaseUser.uid}`), newPortfolio);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Registration error:', error);
+      
+      // Provide user-friendly error messages
+      if (error.code === 'auth/configuration-not-found') {
+        throw new Error('Firebase Authentication is not properly configured. Please enable Authentication in your Firebase project.');
+      } else if (error.code === 'auth/email-already-in-use') {
+        throw new Error('An account with this email already exists.');
+      } else if (error.code === 'auth/weak-password') {
+        throw new Error('Password should be at least 6 characters long.');
+      } else if (error.code === 'auth/invalid-email') {
+        throw new Error('Please enter a valid email address.');
+      }
+      
       throw error;
     }
   };
