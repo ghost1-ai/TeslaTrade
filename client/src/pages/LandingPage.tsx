@@ -75,13 +75,15 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-tesla-dark text-white">
       {/* Navigation */}
-      <nav className="fixed w-full top-0 z-50 bg-tesla-grey/95 backdrop-blur-sm border-b border-tesla-border">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-tesla-red rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
-              </div>
+    <nav className="fixed w-full top-0 z-50 bg-tesla-grey/95 backdrop-blur-sm border-b border-tesla-border"><div className="container mx-auto px-4 py-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+<img
+      src="/logo.png"   // 👈 put your logo file inside /public/
+                        alt="Logo"
+                        className="w-10 h-10 object-contain"
+                      />
+                    </div>
               <span className="text-xl font-bold">Tesla Invest</span>
             </div>
             
@@ -122,7 +124,7 @@ export default function LandingPage() {
                         type="password"
                         value={loginForm.password}
                         onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
-                        className="bg-tesla-grey border-tesla-border"
+                        className="bg- border-tesla-border"
                         required
                       />
                     </div>
@@ -166,7 +168,7 @@ export default function LandingPage() {
                           id="firstName"
                           value={registerForm.firstName}
                           onChange={(e) => setRegisterForm({...registerForm, firstName: e.target.value})}
-                          className="bg-tesla-grey border-tesla-border"
+                          className="sliver border-tesla-border"
                           required
                         />
                       </div>
@@ -176,7 +178,7 @@ export default function LandingPage() {
                           id="lastName"
                           value={registerForm.lastName}
                           onChange={(e) => setRegisterForm({...registerForm, lastName: e.target.value})}
-                          className="bg-tesla-grey border-tesla-border"
+                          className="sliver border-tesla-border"
                           required
                         />
                       </div>
@@ -189,7 +191,7 @@ export default function LandingPage() {
                         type="email"
                         value={registerForm.email}
                         onChange={(e) => setRegisterForm({...registerForm, email: e.target.value})}
-                        className="bg-tesla-grey border-tesla-border"
+                        className="sliver border-tesla-border"
                         required
                       />
                     </div>
@@ -201,7 +203,7 @@ export default function LandingPage() {
                         type="tel"
                         value={registerForm.phone}
                         onChange={(e) => setRegisterForm({...registerForm, phone: e.target.value})}
-                        className="bg-tesla-grey border-tesla-border"
+                        className="sliver border-tesla-border"
                         required
                       />
                     </div>
@@ -209,7 +211,7 @@ export default function LandingPage() {
                     <div>
                       <Label htmlFor="country">Country</Label>
                       <Select value={registerForm.country} onValueChange={(value) => setRegisterForm({...registerForm, country: value})}>
-                        <SelectTrigger className="bg-tesla-grey border-tesla-border">
+                        <SelectTrigger className="sliver border-tesla-border">
                           <SelectValue placeholder="Select your country" />
                         </SelectTrigger>
                         <SelectContent className="bg-tesla-surface border-tesla-border max-h-48">
@@ -225,7 +227,7 @@ export default function LandingPage() {
                     <div>
                       <Label htmlFor="currency">Currency</Label>
                       <Select value={registerForm.currency} onValueChange={(value) => setRegisterForm({...registerForm, currency: value})}>
-                        <SelectTrigger className="bg-tesla-grey border-tesla-border">
+                        <SelectTrigger className="sliver border-tesla-border">
                           <SelectValue placeholder="Select your currency" />
                         </SelectTrigger>
                         <SelectContent className="bg-tesla-surface border-tesla-border max-h-48">
@@ -245,7 +247,7 @@ export default function LandingPage() {
                         type="password"
                         value={registerForm.password}
                         onChange={(e) => setRegisterForm({...registerForm, password: e.target.value})}
-                        className="bg-tesla-grey border-tesla-border"
+                        className="sliver border-tesla-border"
                         required
                       />
                     </div>
@@ -257,7 +259,7 @@ export default function LandingPage() {
                         type="password"
                         value={registerForm.confirmPassword}
                         onChange={(e) => setRegisterForm({...registerForm, confirmPassword: e.target.value})}
-                        className="bg-tesla-grey border-tesla-border"
+                        className="sliver border-tesla-border"
                         required
                       />
                     </div>
@@ -295,6 +297,7 @@ export default function LandingPage() {
           </div>
         </div>
       </nav>
+                
 
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-4">

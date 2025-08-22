@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ChatwayScript } from "@/components/ChatwayScript";
-import { FirebaseStatus } from "@/components/FirebaseStatus";
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/not-found";
@@ -43,7 +42,6 @@ function App() {
         <AuthProvider>
           <Toaster />
           <ChatwayScript />
-          <FirebaseStatus />
           <AppContent />
         </AuthProvider>
       </TooltipProvider>
