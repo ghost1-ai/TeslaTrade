@@ -120,7 +120,216 @@ export default function LandingPage() {
                     <div>
                       <Label htmlFor="login-password">Password</Label>
                       <Input
-                       =600" 
+                        id="login-password"
+                        type="password"
+                        value={loginForm.password}
+                        onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
+                        className="bg-tesla-surface border-tesla-border"
+                        required
+                      />
+                    </div>
+                    
+                    <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
+                      Sign In
+                    </Button>
+                  </form>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog open={showRegister} onOpenChange={setShowRegister}>
+                <DialogTrigger asChild>
+                  <Button className="bg-tesla-red hover:bg-tesla-red/80">
+                    Get Started
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-tesla-surface border-tesla-border max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="text-center text-white">Create Your Account</DialogTitle>
+                    <p className="text-center text-gray-400">Start investing in Tesla today</p>
+                  </DialogHeader>
+                  
+                  <form onSubmit={handleRegister} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input
+                          id="firstName"
+                          value={registerForm.firstName}
+                          onChange={(e) => setRegisterForm({...registerForm, firstName: e.target.value})}
+                          className="bg-tesla-surface border-tesla-border"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input
+                          id="lastName"
+                          value={registerForm.lastName}
+                          onChange={(e) => setRegisterForm({...registerForm, lastName: e.target.value})}
+                          className="bg-tesla-surface border-tesla-border"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={registerForm.email}
+                        onChange={(e) => setRegisterForm({...registerForm, email: e.target.value})}
+                        className="bg-tesla-surface border-tesla-border"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={registerForm.phone}
+                        onChange={(e) => setRegisterForm({...registerForm, phone: e.target.value})}
+                        className="bg-tesla-surface border-tesla-border"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="country">Country</Label>
+                        <Select 
+                          value={registerForm.country} 
+                          onValueChange={(value) => setRegisterForm({...registerForm, country: value})}
+                        >
+                          <SelectTrigger className="bg-tesla-surface border-tesla-border">
+                            <SelectValue placeholder="Select country" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {countries.map((country) => (
+                              <SelectItem key={country.code} value={country.code}>
+                                {country.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="currency">Currency</Label>
+                        <Select 
+                          value={registerForm.currency} 
+                          onValueChange={(value) => setRegisterForm({...registerForm, currency: value})}
+                        >
+                          <SelectTrigger className="bg-tesla-surface border-tesla-border">
+                            <SelectValue placeholder="Select currency" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {currencies.map((currency) => (
+                              <SelectItem key={currency.code} value={currency.code}>
+                                {currency.symbol} {currency.code}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        value={registerForm.password}
+                        onChange={(e) => setRegisterForm({...registerForm, password: e.target.value})}
+                        className="bg-tesla-surface border-tesla-border"
+                        required
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <Input
+                        id="confirmPassword"
+                        type="password"
+                        value={registerForm.confirmPassword}
+                        onChange={(e) => setRegisterForm({...registerForm, confirmPassword: e.target.value})}
+                        className="bg-tesla-surface border-tesla-border"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="terms"
+                        checked={registerForm.agreeToTerms}
+                        onCheckedChange={(checked) => 
+                          setRegisterForm({...registerForm, agreeToTerms: !!checked})
+                        }
+                      />
+                      <Label htmlFor="terms" className="text-sm text-gray-400">
+                        I agree to the Terms of Service and Privacy Policy
+                      </Label>
+                    </div>
+                    
+                    <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
+                      Create Account
+                    </Button>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 px-4">
+        <div className="container mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Invest in the Future of <span className="text-tesla-red">Tesla</span>
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+                Join the electric revolution with fractional Tesla stock investing. Start building your portfolio with as little as $1.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <Button 
+                  onClick={() => setShowRegister(true)}
+                  className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6"
+                >
+                  Start Investing
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-tesla-border hover:bg-tesla-surface text-lg px-8 py-6"
+                >
+                  Learn More
+                </Button>
+              </div>
+              
+              <div className="flex items-center space-x-8 text-sm text-gray-400">
+                <div className="flex items-center space-x-2">
+                  <Shield size={16} />
+                  <span>SEC Regulated</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock size={16} />
+                  <span>Real-time Trading</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <DollarSign size={16} />
+                  <span>$0 Commission</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600" 
                 alt="Tesla factory production line" 
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
