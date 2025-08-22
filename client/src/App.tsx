@@ -10,20 +10,7 @@ import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/not-found";
 
 function AppContent() {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-tesla-dark text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 bg-tesla-red rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-sm">T</span>
-          </div>
-          <p>Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  const { user} = useAuth();
 
   return (
     <Switch>
