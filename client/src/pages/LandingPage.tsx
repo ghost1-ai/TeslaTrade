@@ -132,6 +132,20 @@ export default function LandingPage() {
                     <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
                       Sign In
                     </Button>
+                    
+                    <div className="text-center mt-4">
+                      <span className="text-gray-400 text-sm">Don't have an account? </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowLogin(false);
+                          setShowRegister(true);
+                        }}
+                        className="text-tesla-red hover:underline text-sm"
+                      >
+                        Create account
+                      </button>
+                    </div>
                   </form>
                 </DialogContent>
               </Dialog>
@@ -276,6 +290,20 @@ export default function LandingPage() {
                     <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
                       Create Account
                     </Button>
+                    
+                    <div className="text-center mt-4">
+                      <span className="text-gray-400 text-sm">Already have an account? </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowRegister(false);
+                          setShowLogin(true);
+                        }}
+                        className="text-tesla-red hover:underline text-sm"
+                      >
+                        Sign in
+                      </button>
+                    </div>
                   </form>
                 </DialogContent>
               </Dialog>
@@ -301,13 +329,7 @@ export default function LandingPage() {
                   onClick={() => setShowRegister(true)}
                   className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6"
                 >
-                  Start Investing
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-tesla-border hover:bg-tesla-surface text-lg px-8 py-6"
-                >
-                  Learn More
+                Get Started 
                 </Button>
               </div>
               

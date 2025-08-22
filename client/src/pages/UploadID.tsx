@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '@/lib/firebase';
-import { CloudUpload } from 'lucide-react';
+import { CloudUpload, CheckCircle } from 'lucide-react';
 
 export default function UploadID() {
   const { user, updateUserData } = useAuth();
@@ -15,12 +15,21 @@ export default function UploadID() {
   const [frontFile, setFrontFile] = useState<File | null>(null);
   const [backFile, setBackFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState({ front: false, back: false });
 
   const handleFileChange = (type: 'front' | 'back', file: File | null) => {
     if (type === 'front') {
       setFrontFile(file);
+      if (file) {
+        setUploadSuccess(prev => ({ ...prev, front: true }));
+        toast({ title: 'Success', description: 'Front page uploaded successfully!' });
+      }
     } else {
       setBackFile(file);
+      if (file) {
+        setUploadSuccess(prev => ({ ...prev, back: true }));
+        toast({ title: 'Success', description: 'Back page uploaded successfully!' });
+      }
     }
   };
 
@@ -73,20 +82,30 @@ export default function UploadID() {
   const FileUploadArea = ({ 
     label, 
     file, 
-    onChange 
+    onChange,
+    isSuccess 
   }: { 
     label: string; 
     file: File | null; 
     onChange: (file: File | null) => void; 
+    isSuccess?: boolean;
   }) => (
     <div>
       <Label className="block text-sm font-medium mb-2">{label}</Label>
       <div 
-        className="border-2 border-dashed border-tesla-border rounded-lg p-8 text-center cursor-pointer hover:border-tesla-red transition-colors"
+        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+          isSuccess 
+            ? 'border-green-500 bg-green-50/5' 
+            : 'border-tesla-border hover:border-tesla-red'
+        }`}
         onClick={() => document.getElementById(`file-${label}`)?.click()}
       >
-        <CloudUpload size={48} className="text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-400 mb-2">
+        {isSuccess ? (
+          <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
+        ) : (
+          <CloudUpload size={48} className="text-gray-400 mx-auto mb-4" />
+        )}
+        <p className={`mb-2 ${isSuccess ? 'text-green-500' : 'text-gray-400'}`}>
           {file ? file.name : 'Click to upload or drag and drop'}
         </p>
         <p className="text-sm text-gray-500">PNG, JPG up to 10MB</p>
@@ -124,12 +143,14 @@ export default function UploadID() {
           label="Front Page"
           file={frontFile}
           onChange={(file) => handleFileChange('front', file)}
+          isSuccess={uploadSuccess.front}
         />
         
         <FileUploadArea
           label="Back Page"
           file={backFile}
           onChange={(file) => handleFileChange('back', file)}
+          isSuccess={uploadSuccess.back}
         />
         
         <Button 

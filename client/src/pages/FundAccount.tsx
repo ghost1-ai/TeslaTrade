@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ref as dbRef, push, set } from 'firebase/database';
 import { storage, db } from '@/lib/firebase';
-import { CloudUpload, Copy } from 'lucide-react';
+import { CloudUpload, Copy, CheckCircle } from 'lucide-react';
 
 export default function FundAccount() {
   const { user, userData } = useAuth();
@@ -15,6 +15,7 @@ export default function FundAccount() {
   const [amount, setAmount] = useState('');
   const [paymentFile, setPaymentFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -23,6 +24,10 @@ export default function FundAccount() {
 
   const handleFileChange = (file: File | null) => {
     setPaymentFile(file);
+    if (file) {
+      setUploadSuccess(true);
+      toast({ title: 'Success', description: 'Payment proof uploaded successfully!' });
+    }
   };
 
   const handleSubmitPayment = async () => {
@@ -112,11 +117,19 @@ export default function FundAccount() {
         <div>
           <Label className="block text-sm font-medium mb-2">Payment Screenshot</Label>
           <div 
-            className="border-2 border-dashed border-tesla-border rounded-lg p-8 text-center cursor-pointer hover:border-tesla-red transition-colors"
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              uploadSuccess 
+                ? 'border-green-500 bg-green-50/5' 
+                : 'border-tesla-border hover:border-tesla-red'
+            }`}
             onClick={() => document.getElementById('payment-file')?.click()}
           >
-            <CloudUpload size={48} className="text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-400 mb-2">
+            {uploadSuccess ? (
+              <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
+            ) : (
+              <CloudUpload size={48} className="text-gray-400 mx-auto mb-4" />
+            )}
+            <p className={`mb-2 ${uploadSuccess ? 'text-green-500' : 'text-gray-400'}`}>
               {paymentFile ? paymentFile.name : 'Upload payment proof'}
             </p>
             <p className="text-sm text-gray-500">PNG, JPG up to 10MB</p>

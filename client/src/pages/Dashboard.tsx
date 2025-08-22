@@ -135,12 +135,6 @@ export default function Dashboard() {
       <div className="bg-tesla-grey border-b border-tesla-border px-4 py-3 fixed w-full top-0 z-50">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-tesla-red rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
-              </div>
-              <span className="text-xl font-bold">Tesla Invest</span>
-            </div>
           </div>
           
           <div className="flex items-center space-x-4">
