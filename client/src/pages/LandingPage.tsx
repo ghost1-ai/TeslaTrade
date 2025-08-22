@@ -75,15 +75,15 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-tesla-dark text-white">
       {/* Navigation */}
-    <nav className="fixed w-full top-0 z-50 bg-tesla-grey/95 backdrop-blur-sm border-b border-tesla-border"><div className="container mx-auto px-4 py-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-<img
-      src="/logo.png"   // 👈 put your logo file inside /public/
-                        alt="Logo"
-                        className="w-10 h-10 object-contain"
-                      />
-                    </div>
+      <nav className="fixed w-full top-0 z-50 bg-tesla-grey/95 backdrop-blur-sm border-b border-tesla-border">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-10 h-10 object-contain"
+              />
               <span className="text-xl font-bold">Tesla Invest</span>
             </div>
             
