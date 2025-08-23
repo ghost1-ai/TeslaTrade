@@ -1,76 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useAuth } from '@/contexts/AuthContext';
-import { countries } from '@/lib/countries';
-import { currencies } from '@/lib/currencies';
 import { TradingViewTickerTape } from '@/components/TradingViewWidget';
-import { useToast } from '@/hooks/use-toast';
-import { Zap, Shield, TrendingUp, Clock, DollarSign, Headphones, ChartLine, Building, Check, X } from 'lucide-react';
+import { Zap, Shield, TrendingUp, Clock, DollarSign, Headphones, ChartLine, Building, Check } from 'lucide-react';
 
 export default function LandingPage() {
-  const { login, register } = useAuth();
-  const { toast } = useToast();
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const [registerForm, setRegisterForm] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    country: '',
-    currency: '',
-    password: '',
-    confirmPassword: '',
-    agreeToTerms: false,
-  });
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await login(loginForm.email, loginForm.password);
-      toast({ title: 'Success', description: 'Logged in successfully' });
-      setShowLogin(false);
-    } catch (error) {
-      toast({ title: 'Error', description: 'Invalid email or password', variant: 'destructive' });
-    }
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (registerForm.password !== registerForm.confirmPassword) {
-      toast({ title: 'Error', description: 'Passwords do not match', variant: 'destructive' });
-      return;
-    }
-
-    if (!registerForm.agreeToTerms) {
-      toast({ title: 'Error', description: 'Please agree to the terms and conditions', variant: 'destructive' });
-      return;
-    }
-
-    try {
-      await register({
-        firstName: registerForm.firstName,
-        lastName: registerForm.lastName,
-        email: registerForm.email,
-        phone: registerForm.phone,
-        country: registerForm.country,
-        currency: registerForm.currency,
-        password: registerForm.password,
-      });
-      toast({ title: 'Success', description: 'Account created successfully' });
-      setShowRegister(false);
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to create account', variant: 'destructive' });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-tesla-dark text-white">
@@ -92,221 +26,33 @@ export default function LandingPage() {
               <a href="#pricing" className="hover:text-tesla-red transition-colors">Pricing</a>
               <a href="#security" className="hover:text-tesla-red transition-colors">Security</a>
               
-              <Dialog open={showLogin} onOpenChange={setShowLogin}>
-                <DialogTrigger asChild>
-                  <Button variant="ghost" className="text-white hover:text-tesla-red">
-                    Login
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-tesla-surface border-tesla-border">
-                  <DialogHeader>
-                    <DialogTitle className="text-center text-white">Welcome Back</DialogTitle>
-                    <p className="text-center text-gray-400">Sign in to your Tesla Invest account</p>
-                  </DialogHeader>
-                  
-                  <form onSubmit={handleLogin} className="space-y-4">
-                    <div>
-                      <Label htmlFor="login-email">Email Address</Label>
-                      <Input
-                        id="login-email"
-                        type="email"
-                        value={loginForm.email}
-                        onChange={(e) => setLoginForm({...loginForm, email: e.target.value})}
-                        className="sliver border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="login-password">Password</Label>
-                      <Input
-                        id="login-password"
-                        type="password"
-                        value={loginForm.password}
-                        onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
-                        className="bg-tesla-surface border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
-                      Sign In
-                    </Button>
-                    
-                    <div className="text-center mt-4">
-                      <span className="text-gray-400 text-sm">Don't have an account? </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setShowLogin(false);
-                          setShowRegister(true);
-                        }}
-                        className="text-tesla-red hover:underline text-sm"
-                      >
-                        Create account
-                      </button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
+              <Link href="/signin">
+                <Button variant="ghost" className="text-white hover:text-tesla-red">
+                  Sign In
+                </Button>
+              </Link>
 
-              <Dialog open={showRegister} onOpenChange={setShowRegister}>
-                <DialogTrigger asChild>
-                  <Button className="bg-tesla-red hover:bg-tesla-red/80">
-                    Get Started
+              <Link href="/signup">
+                <Button className="bg-tesla-red hover:bg-tesla-red/80">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className="md:hidden">
+              <div className="flex items-center space-x-3">
+                <Link href="/signin">
+                  <Button variant="ghost" size="sm" className="text-white hover:text-tesla-red">
+                    Sign In
                   </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-tesla-surface border-tesla-border max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="text-center text-white">Create Your Account</DialogTitle>
-                    <p className="text-center text-gray-400">Start investing in Tesla today</p>
-                  </DialogHeader>
-                  
-                  <form onSubmit={handleRegister} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input
-                          id="firstName"
-                          value={registerForm.firstName}
-                          onChange={(e) => setRegisterForm({...registerForm, firstName: e.target.value})}
-                          className="bg-tesla-surface border-tesla-border"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input
-                          id="lastName"
-                          value={registerForm.lastName}
-                          onChange={(e) => setRegisterForm({...registerForm, lastName: e.target.value})}
-                          className="bg-tesla-surface border-tesla-border"
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={registerForm.email}
-                        onChange={(e) => setRegisterForm({...registerForm, email: e.target.value})}
-                        className="bg-tesla-surface border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        value={registerForm.phone}
-                        onChange={(e) => setRegisterForm({...registerForm, phone: e.target.value})}
-                        className="bg-tesla-surface border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="country">Country</Label>
-                        <Select 
-                          value={registerForm.country} 
-                          onValueChange={(value) => setRegisterForm({...registerForm, country: value})}
-                        >
-                          <SelectTrigger className="bg-tesla-surface border-tesla-border">
-                            <SelectValue placeholder="Select country" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {countries.map((country) => (
-                              <SelectItem key={country.code} value={country.code}>
-                                {country.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="currency">Currency</Label>
-                        <Select 
-                          value={registerForm.currency} 
-                          onValueChange={(value) => setRegisterForm({...registerForm, currency: value})}
-                        >
-                          <SelectTrigger className="bg-tesla-surface border-tesla-border">
-                            <SelectValue placeholder="Select currency" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {currencies.map((currency) => (
-                              <SelectItem key={currency.code} value={currency.code}>
-                                {currency.symbol} {currency.code}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        id="password"
-                        type="password"
-                        value={registerForm.password}
-                        onChange={(e) => setRegisterForm({...registerForm, password: e.target.value})}
-                        className="bg-tesla-surface border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="confirmPassword">Confirm Password</Label>
-                      <Input
-                        id="confirmPassword"
-                        type="password"
-                        value={registerForm.confirmPassword}
-                        onChange={(e) => setRegisterForm({...registerForm, confirmPassword: e.target.value})}
-                        className="bg-tesla-surface border-tesla-border"
-                        required
-                      />
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="terms"
-                        checked={registerForm.agreeToTerms}
-                        onCheckedChange={(checked) => 
-                          setRegisterForm({...registerForm, agreeToTerms: !!checked})
-                        }
-                      />
-                      <Label htmlFor="terms" className="text-sm text-gray-400">
-                        I agree to the Terms of Service and Privacy Policy
-                      </Label>
-                    </div>
-                    
-                    <Button type="submit" className="w-full bg-tesla-red hover:bg-tesla-red/80">
-                      Create Account
-                    </Button>
-                    
-                    <div className="text-center mt-4">
-                      <span className="text-gray-400 text-sm">Already have an account? </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setShowRegister(false);
-                          setShowLogin(true);
-                        }}
-                        className="text-tesla-red hover:underline text-sm"
-                      >
-                        Sign in
-                      </button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="bg-tesla-red hover:bg-tesla-red/80">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -325,12 +71,11 @@ export default function LandingPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button 
-                  onClick={() => setShowRegister(true)}
-                  className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6"
-                >
-                Get Started 
-                </Button>
+                <Link href="/signup">
+                  <Button className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6">
+                    Get Started 
+                  </Button>
+                </Link>
               </div>
               
               <div className="flex items-center space-x-8 text-sm text-gray-400">
@@ -556,12 +301,11 @@ export default function LandingPage() {
         <div className="container mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Start Building Your Tesla Portfolio Today</h2>
           <p className="text-gray-300 text-lg mb-8">Join thousands of investors already earning with Tesla Invest</p>
-          <Button 
-            onClick={() => setShowRegister(true)}
-            className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6"
-          >
-            Invest Now
-          </Button>
+          <Link href="/signup">
+            <Button className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6">
+              Invest Now
+            </Button>
+          </Link>
         </div>
       </section>
 

@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ChatwayScript } from "@/components/ChatwayScript";
 import LandingPage from "@/pages/LandingPage";
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/not-found";
 
@@ -16,6 +18,12 @@ function AppContent() {
     <Switch>
       <Route path="/">
         {user ? <Dashboard /> : <LandingPage />}
+      </Route>
+      <Route path="/signin">
+        {user ? <Dashboard /> : <SignIn />}
+      </Route>
+      <Route path="/signup">
+        {user ? <Dashboard /> : <SignUp />}
       </Route>
       <Route component={NotFound} />
     </Switch>
