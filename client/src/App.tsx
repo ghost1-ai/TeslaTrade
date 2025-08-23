@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
-import { ChatwayScript } from "@/components/ChatwayScript";
+import { SmartsuppChat } from "@/components/SmartsuppChat";
 import LandingPage from "@/pages/LandingPage";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
@@ -36,7 +36,7 @@ function App() {
       <TooltipProvider>
         <AuthProvider>
           <Toaster />
-          <ChatwayScript />
+          <SmartsuppChat/>
           <AppContent />
         </AuthProvider>
       </TooltipProvider>

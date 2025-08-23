@@ -96,7 +96,7 @@ export default function LandingPage() {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600" 
+                src="https://media.cnn.com/api/v1/images/stellar/prod/c-2025-01-29t200958z-751044450-rc2qdca4cgkl-rtrmadp-3-tesla-results.jpg?c=16x9&q=h_540,w_960,c_fill" 
                 alt="Tesla factory production line" 
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
