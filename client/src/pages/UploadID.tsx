@@ -20,16 +20,10 @@ export default function UploadID() {
   const handleFileChange = (type: 'front' | 'back', file: File | null) => {
     if (type === 'front') {
       setFrontFile(file);
-      if (file) {
-        setUploadSuccess(prev => ({ ...prev, front: true }));
-        toast({ title: 'Success', description: 'Front page uploaded successfully!' });
-      }
+      // Don't show success message here, only set the file
     } else {
       setBackFile(file);
-      if (file) {
-        setUploadSuccess(prev => ({ ...prev, back: true }));
-        toast({ title: 'Success', description: 'Back page uploaded successfully!' });
-      }
+      // Don't show success message here, only set the file
     }
   };
 
@@ -64,9 +58,12 @@ export default function UploadID() {
         backDocumentURL: backURL,
       });
 
+      // Set success states and show success messages
+      setUploadSuccess({ front: true, back: true });
+      
       toast({ 
         title: 'Success', 
-        description: 'Documents uploaded successfully! Your account is under review.',
+        description: 'Documents uploaded and verified successfully! Your account is now active.',
       });
     } catch (error) {
       toast({ 
@@ -94,18 +91,18 @@ export default function UploadID() {
       <Label className="block text-sm font-medium mb-2">{label}</Label>
       <div 
         className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-          isSuccess 
-            ? 'border-green-500 bg-green-50/5' 
+          file 
+            ? 'border-tesla-red bg-tesla-red/10' 
             : 'border-tesla-border hover:border-tesla-red'
         }`}
         onClick={() => document.getElementById(`file-${label}`)?.click()}
       >
-        {isSuccess ? (
-          <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
+        {file ? (
+          <CheckCircle size={48} className="text-tesla-red mx-auto mb-4" />
         ) : (
           <CloudUpload size={48} className="text-gray-400 mx-auto mb-4" />
         )}
-        <p className={`mb-2 ${isSuccess ? 'text-green-500' : 'text-gray-400'}`}>
+        <p className={`mb-2 ${file ? 'text-tesla-red' : 'text-gray-400'}`}>
           {file ? file.name : 'Click to upload or drag and drop'}
         </p>
         <p className="text-sm text-gray-500">PNG, JPG up to 10MB</p>
@@ -143,14 +140,12 @@ export default function UploadID() {
           label="Front Page"
           file={frontFile}
           onChange={(file) => handleFileChange('front', file)}
-          isSuccess={uploadSuccess.front}
         />
         
         <FileUploadArea
           label="Back Page"
           file={backFile}
           onChange={(file) => handleFileChange('back', file)}
-          isSuccess={uploadSuccess.back}
         />
         
         <Button 

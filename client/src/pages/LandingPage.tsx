@@ -20,12 +20,12 @@ export default function LandingPage() {
               />
               <span className="text-xl font-bold">Tesla Invest</span>
             </div>
-            
+
             <div className="hidden md:flex items-center space-x-6">
               <a href="#features" className="hover:text-tesla-red transition-colors">Features</a>
               <a href="#pricing" className="hover:text-tesla-red transition-colors">Pricing</a>
               <a href="#security" className="hover:text-tesla-red transition-colors">Security</a>
-              
+
               <Link href="/signin">
                 <Button variant="ghost" className="text-white hover:text-tesla-red">
                   Sign In
@@ -69,7 +69,7 @@ export default function LandingPage() {
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                 Join the electric revolution with fractional Tesla stock investing. Start building your portfolio with as little as $1.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link href="/signup">
                   <Button className="bg-tesla-red hover:bg-tesla-red/80 text-lg px-8 py-6">
@@ -77,7 +77,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
               </div>
-              
+
               <div className="flex items-center space-x-8 text-sm text-gray-400">
                 <div className="flex items-center space-x-2">
                   <Shield size={16} />
@@ -93,7 +93,7 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
               <img 
                 src="https://media.cnn.com/api/v1/images/stellar/prod/c-2025-01-29t200958z-751044450-rc2qdca4cgkl-rtrmadp-3-tesla-results.jpg?c=16x9&q=h_540,w_960,c_fill" 
@@ -113,7 +113,7 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Tesla Stock Performance</h2>
             <p className="text-gray-300 text-lg">Real-time TSLA stock data and analytics</p>
           </div>
-          
+
           {/* TradingView Ticker Tape */}
           <div className="mb-8">
             <TradingViewTickerTape />
@@ -140,7 +140,7 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Tesla Invest?</h2>
             <p className="text-gray-300 text-lg">Professional-grade features for every investor</p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -149,7 +149,7 @@ export default function LandingPage() {
               <h3 className="text-xl font-semibold mb-2">Real-Time Trading</h3>
               <p className="text-gray-300">Up-to-the-minute order execution with live market data</p>
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <DollarSign className="text-tesla-red" size={32} />
@@ -157,7 +157,7 @@ export default function LandingPage() {
               <h3 className="text-xl font-semibold mb-2">Fractional Investing</h3>
               <p className="text-gray-300">Start with as little as $1 and build your portfolio</p>
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="text-tesla-red" size={32} />
@@ -165,7 +165,7 @@ export default function LandingPage() {
               <h3 className="text-xl font-semibold mb-2">Instant Deposits</h3>
               <p className="text-gray-300">Fund your account instantly via card, bank, or wallet</p>
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="text-tesla-red" size={32} />
@@ -173,7 +173,7 @@ export default function LandingPage() {
               <h3 className="text-xl font-semibold mb-2">Secure & Regulated</h3>
               <p className="text-gray-300">Licensed broker partnerships and bank-grade security</p>
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="text-tesla-red" size={32} />
@@ -181,7 +181,7 @@ export default function LandingPage() {
               <h3 className="text-xl font-semibold mb-2">Portfolio Tracking</h3>
               <p className="text-gray-300">Monitor earnings, history, and portfolio value in real-time</p>
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6 text-center">
               <div className="bg-tesla-red/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Headphones className="text-tesla-red" size={32} />
@@ -200,7 +200,7 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
             <p className="text-gray-300 text-lg">Start investing in 4 simple steps</p>
           </div>
-          
+
           <div className="grid md:grid-cols-4 gap-8">
             {[
               { step: 1, title: 'Create Account', desc: 'KYC verification with government-issued ID' },
@@ -227,7 +227,7 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Trust & Security</h2>
             <p className="text-gray-300 text-lg">Your investments are protected by industry-leading security</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-6">
               {[
@@ -246,7 +246,7 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-            
+
             <div className="bg-tesla-surface rounded-xl p-6">
               <h3 className="text-xl font-semibold mb-4">Regulatory Compliance</h3>
               <div className="space-y-3">
@@ -274,19 +274,19 @@ export default function LandingPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Transparent Pricing</h2>
             <p className="text-gray-300 text-lg">No hidden fees, just honest pricing</p>
           </div>
-          
+
           <div className="bg-tesla-surface rounded-xl p-8">
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-profit-green mb-2">$0</h3>
                 <p className="text-gray-300">Trading Commissions</p>
               </div>
-              
+
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-2">$0.50</h3>
                 <p className="text-gray-300">Deposit Fee</p>
               </div>
-              
+
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-2">$1.00</h3>
                 <p className="text-gray-300">Withdrawal Fee</p>
@@ -322,7 +322,7 @@ export default function LandingPage() {
               </div>
               <p className="text-gray-400 text-sm">Secure Tesla investment platform with real-time trading and portfolio management.</p>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <div className="space-y-2 text-sm text-gray-400">
@@ -331,7 +331,7 @@ export default function LandingPage() {
                 <div><a href="#" className="hover:text-white transition-colors">Blog</a></div>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <div className="space-y-2 text-sm text-gray-400">
@@ -340,7 +340,7 @@ export default function LandingPage() {
                 <div><a href="#" className="hover:text-white transition-colors">API Docs</a></div>
               </div>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-4">Legal</h4>
               <div className="space-y-2 text-sm text-gray-400">
@@ -350,7 +350,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="border-t border-tesla-border mt-8 pt-8 text-center text-sm text-gray-400">
             <p>© 2024 Tesla Invest. All rights reserved. Investment involves risk. Past performance does not guarantee future results.</p>
           </div>

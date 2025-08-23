@@ -4,35 +4,38 @@ import React, { useEffect } from 'react';
 declare global {
   interface Window {
     smartsupp?: any;
+    _smartsupp?: any;
   }
 }
 
 export function SmartsuppChat() {
   useEffect(() => {
-    // Initialize Smartsupp chat widget
-    window.smartsupp || (function(d) {
-      var s, c, o = document.getElementsByTagName('script')[0];
-      if (!o) return;
-      s = d.createElement('script');
-      s.type = 'text/javascript';
-      s.async = true;
-      s.src = 'https://www.smartsuppchat.com/loader.js?';
-      c = d.getElementsByTagName('script')[0];
-      if (c && c.parentNode) {
-        c.parentNode.insertBefore(s, c);
-      }
-    })(document);
-
-    // Configure Smartsupp (replace with your actual chat key)
+    // Configure Smartsupp
+    window._smartsupp = window._smartsupp || {};
+    window._smartsupp.key = 'a872b257280bdcfc6d4ed45737a0ec5cb3d1dd14';
+    
+    // Initialize Smartsupp
     window.smartsupp = window.smartsupp || function() {
       (window.smartsupp._ = window.smartsupp._ || []).push(arguments);
     };
-    
-    // You can configure smartsupp here if needed
-    // window.smartsupp('chat:hide');
+    window.smartsupp._ = [];
+
+    // Load Smartsupp script
+    if (!document.querySelector('script[src*="smartsuppchat.com"]')) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.charset = 'utf-8';
+      script.async = true;
+      script.src = 'https://www.smartsuppchat.com/loader.js?';
+      
+      const firstScript = document.getElementsByTagName('script')[0];
+      if (firstScript && firstScript.parentNode) {
+        firstScript.parentNode.insertBefore(script, firstScript);
+      }
+    }
   }, []);
 
-  return null; // This component doesn't render anything visible
+  return null;
 }
 
 export default SmartsuppChat;
