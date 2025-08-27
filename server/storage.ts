@@ -1,3 +1,4 @@
+
 import { type User, type Portfolio, type Transaction, type Notification } from "@shared/schema";
 
 // Firebase-based storage interface for Tesla Investment Platform
@@ -17,47 +18,65 @@ export interface IStorage {
   createNotification(notification: Notification): Promise<Notification>;
 }
 
-// Note: Actual storage is handled by Firebase in the client-side auth context
-// This interface is kept for API consistency but not actively used
+// Mock storage implementation for server-side operations
+// Note: Actual Firebase operations are handled client-side
 export class FirebaseStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return undefined for now - Firebase auth is handled client-side
+    return undefined;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return undefined for now - Firebase auth is handled client-side
+    return undefined;
   }
 
   async createUser(user: User): Promise<User> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return the user as-is - Firebase operations are handled client-side
+    return user;
   }
 
   async updateUser(id: string, data: Partial<User>): Promise<void> {
-    throw new Error("Firebase operations are handled client-side");
+    // No-op - Firebase operations are handled client-side
+    return;
   }
 
   async getPortfolio(userId: string): Promise<Portfolio | undefined> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return a default portfolio structure
+    return {
+      userId,
+      invested: 0,
+      profit: 0,
+      bonus: 0,
+      balance: 0,
+      btcEquivalent: 0,
+      updatedAt: Date.now()
+    };
   }
 
   async updatePortfolio(userId: string, data: Partial<Portfolio>): Promise<void> {
-    throw new Error("Firebase operations are handled client-side");
+    // No-op - Firebase operations are handled client-side
+    return;
   }
 
   async getUserTransactions(userId: string): Promise<Transaction[]> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return empty array - Firebase operations are handled client-side
+    return [];
   }
 
   async createTransaction(transaction: Transaction): Promise<Transaction> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return the transaction as-is - Firebase operations are handled client-side
+    return transaction;
   }
 
   async getUserNotifications(userId: string): Promise<Notification[]> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return empty array - Firebase operations are handled client-side
+    return [];
   }
 
   async createNotification(notification: Notification): Promise<Notification> {
-    throw new Error("Firebase operations are handled client-side");
+    // Return the notification as-is - Firebase operations are handled client-side
+    return notification;
   }
 }
 
