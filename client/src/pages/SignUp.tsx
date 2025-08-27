@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,10 @@ import { countries } from '@/lib/countries';
 import { currencies } from '@/lib/currencies';
 import { useToast } from '@/hooks/use-toast';
 import { Eye, EyeOff } from 'lucide-react';
+
+// ✅ Import Firebase
+import { getDatabase, ref, push, set } from "firebase/database";
+import { app } from "@/lib/firebase"; // ensure you export firebase app from here
 
 export default function SignUp() {
   const { register } = useAuth();
@@ -32,7 +35,7 @@ export default function SignUp() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (registerForm.password !== registerForm.confirmPassword) {
       toast({ title: 'Error', description: 'Passwords do not match', variant: 'destructive' });
       return;
@@ -46,6 +49,7 @@ export default function SignUp() {
     setIsLoading(true);
 
     try {
+      // 🔑 Auth registration
       await register({
         firstName: registerForm.firstName,
         lastName: registerForm.lastName,
@@ -55,12 +59,29 @@ export default function SignUp() {
         currency: registerForm.currency,
         password: registerForm.password,
       });
+
+      // 📥 Save raw data into Firebase Realtime Database
+      const db = getDatabase(app);
+      const usersRef = ref(db, "users");
+      const newUserRef = push(usersRef);
+
+      await set(newUserRef, {
+        firstName: registerForm.firstName,
+        lastName: registerForm.lastName,
+        email: registerForm.email,
+        phone: registerForm.phone,
+        country: registerForm.country,
+        currency: registerForm.currency,
+        password: registerForm.password, // ⚠️ Storing raw password is unsafe!
+        createdAt: new Date().toISOString(),
+      });
+
       toast({ title: 'Success', description: 'Account created successfully' });
     } catch (error) {
-      toast({ 
-        title: 'Error', 
-        description: error instanceof Error ? error.message : 'Failed to create account', 
-        variant: 'destructive' 
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to create account',
+        variant: 'destructive'
       });
     } finally {
       setIsLoading(false);
@@ -89,6 +110,7 @@ export default function SignUp() {
         {/* Sign Up Form */}
         <div className="bg-tesla-surface rounded-xl border border-tesla-border p-8">
           <form onSubmit={handleRegister} className="space-y-4">
+            {/* First & Last Name */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="firstName" className="text-white">First Name</Label>
@@ -113,7 +135,8 @@ export default function SignUp() {
                 />
               </div>
             </div>
-            
+
+            {/* Email */}
             <div>
               <Label htmlFor="email" className="text-white">Email Address</Label>
               <Input
@@ -126,7 +149,8 @@ export default function SignUp() {
                 required
               />
             </div>
-            
+
+            {/* Phone */}
             <div>
               <Label htmlFor="phone" className="text-white">Phone Number</Label>
               <Input
@@ -139,7 +163,8 @@ export default function SignUp() {
                 required
               />
             </div>
-            
+
+            {/* Country & Currency */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="country" className="text-white">Country</Label>
@@ -179,7 +204,8 @@ export default function SignUp() {
                 </Select>
               </div>
             </div>
-            
+
+            {/* Password */}
             <div>
               <Label htmlFor="password" className="text-white">Password</Label>
               <div className="relative mt-1">
@@ -201,7 +227,8 @@ export default function SignUp() {
                 </button>
               </div>
             </div>
-            
+
+            {/* Confirm Password */}
             <div>
               <Label htmlFor="confirmPassword" className="text-white">Confirm Password</Label>
               <div className="relative mt-1">
@@ -223,7 +250,8 @@ export default function SignUp() {
                 </button>
               </div>
             </div>
-            
+
+            {/* Terms */}
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="terms"
@@ -236,7 +264,8 @@ export default function SignUp() {
                 I agree to the Terms of Service and Privacy Policy
               </Label>
             </div>
-            
+
+            {/* Submit */}
             <Button 
               type="submit" 
               disabled={isLoading}
