@@ -1,6 +1,7 @@
 {
+  "ignore": ["server/**"],
   "builds": [
-    { "src": "dist/**", "use": "@vercel/static" }
+    { "src": "vite.config.ts", "use": "@vercel/static-build" }
   ],
   "routes": [
     { "src": "/(.*)", "dest": "/index.html" }
