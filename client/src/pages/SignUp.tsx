@@ -13,7 +13,6 @@ import { Eye, EyeOff } from 'lucide-react';
 
 // ✅ Import Firebase
 import { getDatabase, ref, push, set } from "firebase/database";
-import { app } from "@/lib/firebase"; // ensure you export firebase app from here
 
 export default function SignUp() {
   const { register } = useAuth();
