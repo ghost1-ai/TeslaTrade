@@ -12,19 +12,13 @@ import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/not-found";
 
 function AppContent() {
-  const { user} = useAuth();
+  const { user } = useAuth();
 
   return (
     <Switch>
-      <Route path="/">
-        {user ? <Dashboard /> : <LandingPage />}
-      </Route>
-      <Route path="/signin">
-        {user ? <Dashboard /> : <SignIn />}
-      </Route>
-      <Route path="/signup">
-        {user ? <Dashboard /> : <SignUp />}
-      </Route>
+      <Route path="/" component={() => user ? <Dashboard /> : <LandingPage />} />
+      <Route path="/signin" component={() => user ? <Dashboard /> : <SignIn />} />
+      <Route path="/signup" component={() => user ? <Dashboard /> : <SignUp />} />
       <Route component={NotFound} />
     </Switch>
   );
